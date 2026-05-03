@@ -3,8 +3,11 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { Moon, Sun } from 'lucide-react';
 import Hub from './pages/Hub';
 import Detalhamento from './pages/Detalhamento';
+import DiagnosticoExecutivo from './pages/DiagnosticoExecutivo';
 import TheWorstDay from './pages/TheWorstDay';
 import MatrizRiscos from './pages/MatrizRiscos';
+import CentralProntidao from './pages/CentralProntidao';
+import GabineteCrise from './pages/GabineteCrise';
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -42,8 +45,11 @@ function App() {
           <Routes>
             <Route path="/" element={<Hub />} />
             <Route path="/detalhamento" element={<Detalhamento />} />
+            <Route path="/diagnostico" element={<DiagnosticoExecutivo />} />
             <Route path="/the-worst-day" element={<TheWorstDay />} />
             <Route path="/matriz-riscos" element={<MatrizRiscos />} />
+            <Route path="/central-prontidao" element={<CentralProntidao />} />
+            <Route path="/gabinete-crise" element={<GabineteCrise />} />
           </Routes>
         </main>
       </div>

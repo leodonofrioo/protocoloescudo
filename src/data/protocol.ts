@@ -97,14 +97,14 @@ export const protocolData = {
       id: "diagnostico",
       title: "Diagnóstico Executivo",
       description: "Ferramenta guiada de entrevistas, mapeamento de riscos e prioridades para os primeiros 10 dias.",
-      status: "coming_soon",
+      status: "available_in_doc",
       icon: "PieChart"
     },
     {
       id: "gabinete",
       title: "Gabinete de Crise",
       description: "Estrutura de papéis, fluxo de acionamento, checklist de primeira resposta e Q&A crítico.",
-      status: "coming_soon",
+      status: "available_in_doc",
       icon: "Users"
     },
     {

@@ -1,0 +1,126 @@
+.manual-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.manual-stat {
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  padding: 10px;
+  background: var(--paper);
+  min-height: 92px;
+  break-inside: avoid;
+}
+
+.manual-stat strong {
+  display: block;
+  font-size: 24px;
+  line-height: 1;
+  margin-bottom: 7px;
+  letter-spacing: -.03em;
+}
+
+.manual-flow {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.manual-flow-step {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px;
+  background: var(--paper);
+  min-height: 145px;
+  break-inside: avoid;
+}
+
+.manual-flow-step .step-kicker {
+  display: inline-flex;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 3px 8px;
+  background: var(--soft);
+  color: var(--muted);
+  font-size: 8.6px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin-bottom: 7px;
+}
+
+.manual-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 8px;
+}
+
+.manual-table-wrap table {
+  min-width: 640px;
+}
+
+.manual-template {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--soft);
+  padding: 11px;
+  margin-top: 10px;
+  break-inside: avoid;
+}
+
+.manual-template .template-label {
+  color: var(--muted);
+  font-size: 8.8px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.manual-template p {
+  margin-bottom: 5px;
+}
+
+.manual-template p:last-child {
+  margin-bottom: 0;
+}
+
+.manual-command-grid {
+  display: grid;
+  grid-template-columns: 1.1fr .9fr;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.manual-do-dont {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.manual-page-note {
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--ink);
+  border-radius: 0 11px 11px 0;
+  padding: 10px 12px;
+  background: var(--soft);
+  margin-top: 10px;
+  break-inside: avoid;
+}
+
+@media screen and (max-width: 1100px) {
+  .manual-stat-grid,
+  .manual-flow,
+  .manual-command-grid,
+  .manual-do-dont {
+    grid-template-columns: 1fr;
+  }
+
+  .manual-flow-step {
+    min-height: auto;
+  }
+}

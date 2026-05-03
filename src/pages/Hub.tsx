@@ -6,14 +6,14 @@ import './Hub.css';
 export default function Hub() {
   const documentsList: { title: string; progress: number; status: string; route: string | null }[] = [
     { title: 'Documento Executivo', progress: 100, status: 'Concluído', route: '/detalhamento' },
-    { title: 'Diagnóstico Executivo', progress: 0, status: 'Pendente', route: null },
+    { title: 'Diagnóstico Executivo', progress: 100, status: 'Concluído', route: '/diagnostico' },
     { title: 'Matriz de Riscos', progress: 100, status: 'Concluído', route: '/matriz-riscos' },
-    { title: 'Manual do Gabinete de Crise', progress: 0, status: 'Pendente', route: null },
+    { title: 'Manual do Gabinete de Crise', progress: 100, status: 'Concluído', route: '/gabinete-crise' },
     { title: 'Mensagens Críticas e Q&A', progress: 0, status: 'Pendente', route: null },
     { title: 'Fluxo de Acionamento', progress: 0, status: 'Pendente', route: null },
     { title: 'Relatórios de Prontidão', progress: 0, status: 'Pendente', route: null },
     { title: 'The Worst Day (Simulação)', progress: 100, status: 'Concluído', route: '/the-worst-day' },
-    { title: 'Central Escudo de Prontidão', progress: 0, status: 'Pendente', route: null },
+    { title: 'Central Escudo de Prontidão', progress: 100, status: 'Concluído', route: '/central-prontidao' },
   ];
 
   const completedDocs = documentsList.filter(d => d.progress === 100).length;

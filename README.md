@@ -6,8 +6,11 @@ Aplicacao React + TypeScript + Vite para centralizar documentos executivos e fer
 
 - `/` - Hub com progresso dos documentos e acesso aos materiais disponiveis.
 - `/detalhamento` - Documento executivo completo do Protocolo Escudo.
+- `/diagnostico` - Diagnostico executivo para imersao, entrevistas, priorizacao e plano dos primeiros 10 dias.
 - `/matriz-riscos` - Matriz de riscos com mapa de calor, classificacao e planos de contencao.
+- `/gabinete-crise` - Manual operacional do Gabinete de Crise.
 - `/the-worst-day` - Documento da simulacao de alta pressao.
+- `/central-prontidao` - Central Escudo de Prontidao, com trilhas, biblioteca operacional, governanca e metricas.
 
 ## Scripts
 
@@ -24,8 +27,11 @@ npm run preview
 - `src/components/DocumentShell.tsx` - estrutura compartilhada dos documentos, com indice, progresso de leitura e exportacao.
 - `src/pages/Hub.tsx` - tela inicial da central.
 - `src/pages/Detalhamento.tsx` - documento executivo principal.
+- `src/pages/DiagnosticoExecutivo.tsx` - diagnostico executivo de prontidao e plano de implantacao.
 - `src/pages/MatrizRiscos.tsx` - matriz de riscos.
+- `src/pages/GabineteCrise.tsx` - manual operacional do gabinete de crise.
 - `src/pages/TheWorstDay.tsx` - simulacao The Worst Day.
+- `src/pages/CentralProntidao.tsx` - documento da Central Escudo de Prontidao.
 - `src/data/protocol.ts` - dados institucionais usados no hub.
 - `public/images/Logo.webp` - marca exibida no app e nos documentos.
 
