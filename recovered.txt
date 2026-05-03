@@ -1,0 +1,16 @@
+The USER performed the following action:
+Show the contents of file c:\Projetos Dev\Escudo\Protocolo Escudo Detalhamento.html from lines 1 to 53
+File Path: `file:///c:/Projetos%20Dev/Escudo/Protocolo%20Escudo%20Detalhamento.html`
+Total Lines: 1011
+Total Bytes: 39542
+Showing lines 1 to 53
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1: <!DOCTYPE html>
+2: <html lang="pt-BR">
+3: <head>
+4:   <meta charset="UTF-8" />
+5:   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+6: <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+7:   <title>Protocolo Escudo | Documento Executivo</title>
+8:   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<truncated 1386 bytes>

@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  /* Light Theme (Default) */
+  --ink: #101010;
+  --text: #242424;
+  --muted: #646464;
+  --line: #e2e8f0;
+  --soft: #f8fafc;
+  --screen: #f1f5f9;
+  --paper: #ffffff;
+  --accent: #111111;
+  --radius: 14px;
+  
+  --nav-blur: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(0, 0, 0, 0.08);
+}
+
+.dark-mode {
+  /* Dark Theme */
+  --ink: #f8fafc;
+  --text: #cbd5e1;
+  --muted: #94a3b8;
+  --line: #334155;
+  --soft: #1e293b;
+  --screen: #0f172a;
+  --paper: #1e293b;
+  --accent: #3b82f6; /* A slight blue accent for dark mode looks premium */
+  
+  --nav-blur: rgba(15, 23, 42, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.08);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--screen);
+  color: var(--ink);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Glassmorphism Topbar */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--nav-blur);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--glass-border);
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.dark-mode-toggle {
+  background: none;
+  border: 1px solid var(--line);
+  color: var(--ink);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dark-mode-toggle:hover {
+  background: var(--soft);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+}
+
+/* Card Hover Effects */
+.premium-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.premium-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+  border-color: var(--muted);
+}
+
+.dark-mode .premium-card:hover {
+  box-shadow: 0 12px 28px rgba(0,0,0,0.4);
+}
+
+/* Print Styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #fff;
+    color: #000;
+  }
+  .premium-card {
+    border: 1px solid #ccc;
+    box-shadow: none;
+    page-break-inside: avoid;
+  }
+}
+
+/* Layout Utilities */
+.app-container { min-height: 100vh; display: flex; flex-direction: column; }
+.main-content { flex: 1; width: 100%; max-width: 1200px; margin: 0 auto; padding: 32px 24px; }
+.topbar-brand { display: flex; align-items: center; gap: 12px; color: inherit; text-decoration: none; }
+.topbar-logo-box { width: 36px; height: 36px; border-radius: 8px; background: var(--accent); color: white; display: flex; align-items: center; justify-content: center; }
+.topbar-title { font-weight: 700; font-size: 15px; line-height: 1.2; }
+.topbar-subtitle { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); font-weight: 600; }
+
+.logo-dynamic {
+  filter: invert(1) contrast(200%);
+}
+
+.dark-mode .logo-dynamic {
+  filter: none;
+}

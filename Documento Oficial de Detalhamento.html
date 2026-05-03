@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Protocolo Escudo | Documento Executivo</title>
+  <style>
+    :root{
+      --paper:#ffffff;
+      --screen:#edf0f3;
+      --ink:#101010;
+      --text:#242424;
+      --muted:#646464;
+      --line:#d8d8d8;
+      --soft:#f6f6f6;
+      --soft2:#fafafa;
+      --black:#000000;
+      --radius:12px;
+      --page-w:210mm;
+      --page-h:297mm;
+    }
+
+    *{box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+
+    body{
+      margin:0;
+      background:var(--screen);
+      color:var(--ink);
+      font-family:Arial, Helvetica, sans-serif;
+      font-size:11.2px;
+      line-height:1.42;
+      -webkit-print-color-adjust:exact;
+      print-color-adjust:exact;
+    }
+
+    .document{
+      width:var(--page-w);
+      margin:0 auto;
+      background:var(--paper);
+      box-shadow:0 16px 44px rgba(0,0,0,.12);
+    }
+
+    .page{
+      position:relative;
+      min-height:var(--page-h);
+      padding:14mm 14mm 18mm;
+      background:#fff;
+      page-break-after:always;
+      overflow:visible;
+    }
+
+    .page:last-child{page-break-after:auto;}
+
+    .footer{
+      position:absolute;
+      left:14mm;
+      right:14mm;
+      bottom:7mm;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      padding-top:6px;
+      border-top:1px solid var(--line);
+      color:var(--muted);
+      font-size:8.4px;
+      letter-spacing:.07em;
+      text-transform:uppercase;
+    }
+
+    h1,h2,h3,h4,p{margin-top:0;}
+
+    h1{
+      font-size:35px;
+      line-height:1.02;
+      letter-spacing:-.045em;
+      margin-bottom:10px;
+      color:var(--ink);
+    }
+
+    h2{
+      font-size:21px;
+      line-height:1.15;
+      letter-spacing:-.025em;
+      margin-bottom:8px;
+    }
+
+    h3{
+      font-size:12.8px;
+      line-height:1.25;
+      margin-bottom:5px;
+    }
+
+    h4{
+      font-size:9.4px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      color:var(--muted);
+      margin-bottom:5px;
+    }
+
+    p{margin-bottom:7px;}
+    ul{margin:0;padding-left:15px;}
+    li{margin-bottom:3px;}
+
+    .muted{color:var(--muted);}
+    .lead{font-size:14px;line-height:1.5;color:var(--text);}
+    .small{font-size:9.8px;}
+    .bold{font-weight:700;}
+
+    .eyebrow{
+      font-size:9.4px;
+      font-weight:700;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color:var(--muted);
+      margin-bottom:5px;
+    }
+
+    .section-head{
+      display:grid;
+      grid-template-columns:35px 1fr;
+      gap:11px;
+      align-items:start;
+      padding-bottom:9px;
+      border-bottom:1px solid var(--line);
+      margin-bottom:10px;
+      break-inside:avoid;
+    }
+
+    .section-number{
+      width:35px;
+      height:35px;
+      border:1px solid var(--ink);
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      font-weight:700;
+      font-size:10px;
+    }
+
+    .logo{
+      display:block;
+      width:185px;
+      max-width:100%;
+      filter:brightness(0) saturate(100%);
+    }
+
+    .cover{
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      background:linear-gradient(180deg,#fff 0%,#fbfbfb 100%);
+    }
+
+    .cover-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:20px;
+    }
+
+    .cover-meta{
+      text-align:right;
+      font-size:9.4px;
+      color:var(--muted);
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      line-height:1.5;
+    }
+
+    .cover-title{max-width:162mm;margin-top:18mm;}
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      padding:6px 10px;
+      font-size:9.4px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      margin-bottom:13px;
+      background:#fff;
+    }
+
+    .pill:before{
+      content:"";
+      width:6px;
+      height:6px;
+      border-radius:50%;
+      background:#111;
+    }
+
+    .cover-grid{
+      display:grid;
+      grid-template-columns:1.08fr .92fr;
+      gap:11px;
+      margin-top:16mm;
+    }
+
+    .quote-box{
+      border:1px solid var(--line);
+      border-left:4px solid #111;
+      border-radius:10px;
+      padding:13px;
+      background:#fff;
+      break-inside:avoid;
+    }
+
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;}
+    .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+    .grid-5{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;}
+
+    .card{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:10px;
+      background:#fff;
+      break-inside:avoid;
+      page-break-inside:avoid;
+    }
+
+    .card.soft{background:var(--soft);}
+    .card.dark{background:#111;color:#fff;border-color:#111;}
+    .card.dark .muted{color:#d5d5d5;}
+
+    .icon-title{display:flex;align-items:center;gap:7px;margin-bottom:5px;}
+
+    .icon{
+      width:22px;
+      height:22px;
+      flex:0 0 22px;
+      border-radius:7px;
+      background:var(--soft);
+      border:1px solid var(--line);
+      display:grid;
+      place-items:center;
+    }
+
+    .icon svg{
+      width:14px;
+      height:14px;
+      fill:none;
+      stroke:#111;
+      stroke-width:1.8;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
+
+    .stats{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:8px;
+      margin-top:12px;
+    }
+
+    .stat{
+      border:1px solid var(--line);
+      border-radius:10px;
+      padding:9px;
+      min-height:80px;
+      background:#fff;
+      break-inside:avoid;
+    }
+
+    .stat .n{
+      font-size:24px;
+      font-weight:700;
+      line-height:1;
+      margin-bottom:5px;
+    }
+
+    .method-flow{
+      display:grid;
+      grid-template-columns:repeat(6,1fr);
+      gap:7px;
+      margin-top:10px;
+      break-inside:avoid;
+    }
+
+    .method-card{
+      border:1px solid var(--line);
+      border-radius:11px;
+      padding:8px;
+      min-height:108px;
+      background:#fff;
+    }
+
+    .letter{
+      width:28px;
+      height:28px;
+      border:1px solid #111;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      font-weight:700;
+      margin-bottom:7px;
+    }
+
+    .timeline{
+      display:grid;
+      gap:8px;
+      margin-top:10px;
+    }
+
+    .timeline-item{
+      display:grid;
+      grid-template-columns:30mm 1fr 40mm;
+      gap:9px;
+      align-items:start;
+      border:1px solid var(--line);
+      border-radius:12px;
+      padding:9px;
+      background:#fff;
+      break-inside:avoid;
+    }
+
+    .period{
+      border:1px solid var(--line);
+      background:var(--soft);
+      border-radius:9px;
+      padding:7px;
+      text-align:center;
+      font-size:9.2px;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:.06em;
+    }
+
+    .result-badge{
+      border:1px solid var(--line);
+      border-radius:9px;
+      padding:7px;
+      background:#fafafa;
+      font-size:9.4px;
+      color:var(--muted);
+    }
+
+    .tag{
+      display:inline-flex;
+      border:1px solid var(--line);
+      border-radius:999px;
+      padding:3px 7px;
+      color:var(--muted);
+      text-transform:uppercase;
+      letter-spacing:.05em;
+      font-size:8.4px;
+      background:#fff;
+      margin:2px 3px 0 0;
+    }
+
+    .risk-strip{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:8px;
+      margin-top:10px;
+    }
+
+    .risk-card{
+      border:1px solid var(--line);
+      border-radius:11px;
+      padding:9px;
+      background:#fff;
+      break-inside:avoid;
+    }
+
+    .risk-card strong{display:block;margin-bottom:3px;}
+
+    .deliveries{
+      display:grid;
+      grid-template-columns:repeat(5,1fr);
+      gap:8px;
+      margin-top:10px;
+    }
+
+    .delivery-card{
+      border:1px solid var(--line);
+      border-radius:11px;
+      padding:9px;
+      background:#fff;
+      min-height:122px;
+      break-inside:avoid;
+    }
+
+    .track-grid{
+      display:grid;
+      grid-template-columns:repeat(5,1fr);
+      gap:8px;
+      margin-top:10px;
+    }
+
+    .track-card{
+      border:1px solid var(--line);
+      border-radius:11px;
+      padding:9px;
+      background:#fff;
+      min-height:135px;
+      break-inside:avoid;
+    }
+
+    .decision-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:8px;
+      margin-top:10px;
+    }
+
+    .decision-card{
+      display:grid;
+      grid-template-columns:28px 1fr;
+      gap:8px;
+      border:1px solid var(--line);
+      border-radius:11px;
+      padding:8px;
+      background:#fff;
+      break-inside:avoid;
+    }
+
+    .decision-card .index{
+      width:28px;
+      height:28px;
+      border:1px solid #111;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      font-weight:700;
+      font-size:9.5px;
+    }
+
+    .sim-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+      margin-top:10px;
+    }
+
+    .sim-steps{display:grid;gap:6px;}
+
+    .sim-step{
+      display:grid;
+      grid-template-columns:22px 1fr;
+      gap:7px;
+      align-items:start;
+      border:1px solid var(--line);
+      border-radius:9px;
+      padding:7px;
+      background:#fff;
+      break-inside:avoid;
+    }
+
+    .sim-step span{
+      width:22px;
+      height:22px;
+      border:1px solid #111;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      font-weight:700;
+      font-size:9px;
+    }
+
+    .maturity{
+      display:grid;
+      grid-template-columns:repeat(5,1fr);
+      gap:8px;
+      margin-top:10px;
+    }
+
+    .maturity-card{
+      border:1px solid var(--line);
+      border-radius:11px;
+      padding:9px;
+      min-height:112px;
+      background:#fff;
+      break-inside:avoid;
+    }
+
+    .maturity-card .level{
+      width:26px;
+      height:26px;
+      border:1px solid #111;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      font-weight:700;
+      margin-bottom:6px;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      font-size:9.8px;
+      margin-top:8px;
+      break-inside:avoid;
+      page-break-inside:avoid;
+    }
+
+    th,td{
+      border:1px solid var(--line);
+      padding:6px 7px;
+      vertical-align:top;
+    }
+
+    th{
+      background:var(--soft);
+      font-size:8.6px;
+      text-transform:uppercase;
+      letter-spacing:.06em;
+      text-align:left;
+    }
+
+    .check-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:7px;
+      margin-top:10px;
+    }
+
+    .check-item{
+      display:grid;
+      grid-template-columns:12px 1fr;
+      gap:7px;
+      border:1px solid var(--line);
+      border-radius:9px;
+      padding:7px;
+      background:#fff;
+      font-size:9.8px;
+      break-inside:avoid;
+    }
+
+    .check-item:before{
+      content:"";
+      width:10px;
+      height:10px;
+      border:1.5px solid #111;
+      border-radius:3px;
+      margin-top:2px;
+    }
+
+    .note{
+      border-left:4px solid #111;
+      background:#fafafa;
+      border-radius:0 10px 10px 0;
+      padding:9px 11px;
+      margin-top:10px;
+      break-inside:avoid;
+    }
+
+    .graphic{
+      border:1px solid var(--line);
+      border-radius:13px;
+      background:#fff;
+      padding:10px;
+      break-inside:avoid;
+    }
+
+    .matrix{
+      display:grid;
+      grid-template-columns:32px repeat(2,1fr);
+      grid-template-rows:28px 1fr 1fr;
+      gap:6px;
+      margin-top:8px;
+      min-height:148px;
+    }
+
+    .matrix .axis{
+      display:grid;
+      place-items:center;
+      color:var(--muted);
+      font-size:8.8px;
+      text-transform:uppercase;
+      letter-spacing:.06em;
+    }
+
+    .matrix .y{
+      writing-mode:vertical-rl;
+      transform:rotate(180deg);
+    }
+
+    .matrix-cell{
+      border:1px solid var(--line);
+      border-radius:10px;
+      padding:9px;
+      background:#fff;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      gap:3px;
+    }
+
+    .matrix-cell.dark{background:#111;color:#fff;border-color:#111;}
+    .matrix-cell.soft{background:#f3f3f3;}
+    .matrix-cell span{font-size:9.2px;color:inherit;opacity:.78;}
+
+    .progress-line{width:100%;height:136px;display:block;}
+
+    .before-after{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+      margin-top:10px;
+    }
+
+    .comparison{
+      border:1px solid var(--line);
+      border-radius:13px;
+      padding:10px;
+      background:#fff;
+      break-inside:avoid;
+    }
+
+    .comparison h3{margin-bottom:6px;}
+
+    @page{size:A4;margin:0;}
+
+    @media print{
+      body{background:#fff;}
+      .document{width:210mm;margin:0;box-shadow:none;}
+      .page{min-height:297mm;}
+      a{color:inherit;text-decoration:none;}
+    }
+
+    @media screen and (max-width:900px){
+      .document{width:100%;box-shadow:none;}
+      .page{min-height:auto;padding:24px 16px 50px;}
+      .footer{position:static;margin-top:20px;}
+      .cover-grid,.grid-2,.grid-3,.grid-4,.grid-5,.stats,.risk-strip,.method-flow,.timeline-item,.deliveries,.track-grid,.decision-grid,.sim-grid,.maturity,.check-grid,.before-after{grid-template-columns:1fr;}
+    }
+  </style>
+</head>
+<body>
+  <main class="document">
+
+    <section class="page cover" id="capa">
+      <div>
+        <div class="cover-top">
+          <img class="logo" src="https://dataaccess.attraction.com.br/LogoEscudo.webp" alt="Logo Protocolo Escudo" />
+          <div class="cover-meta">
+            Documento executivo<br />
+            Implantação de prontidão em crise<br />
+            Confidencial
+          </div>
+        </div>
+
+        <div class="cover-title">
+          <div class="pill">Implantação intensiva e blindagem assistida</div>
+          <h1>Protocolo Escudo</h1>
+          <p class="lead">Sua empresa não precisa descobrir como responder a uma crise no dia em que ela acontece.</p>
+        </div>
+
+        <div class="cover-grid">
+          <div class="quote-box">
+            <h3>Promessa objetiva</h3>
+            <p class="lead" style="font-size:16px;margin-bottom:0;">O Protocolo Escudo instala uma estrutura essencial de resposta em até 60 dias e acompanha a aplicação por 120 dias com testes, ajustes e suporte estratégico.</p>
+          </div>
+
+          <div class="card dark">
+            <div class="icon-title">
+              <span class="icon" style="background:#1b1b1b;border-color:#333;">
+                <svg viewBox="0 0 24 24" style="stroke:#fff;"><path d="M12 3l7 4v5c0 5-3.5 8-7 9-3.5-1-7-4-7-9V7l7-4z"></path><path d="M9.5 12l1.7 1.7L15 10"></path></svg>
+              </span>
+              <h3 style="margin:0;">O que muda</h3>
+            </div>
+            <p class="muted">A empresa passa a ter pessoas, fluxos e ferramentas prontas para responder quando reputação, operação e liderança estiverem sob pressão.</p>
+          </div>
+        </div>
+
+        <div class="stats">
+          <div class="stat"><div class="n">30</div><strong>Primeiros dias</strong><p class="muted small" style="margin:3px 0 0;">estrutura essencial de resposta</p></div>
+          <div class="stat"><div class="n">60</div><strong>Dias de implantação</strong><p class="muted small" style="margin:3px 0 0;">capacitação, validação e simulação</p></div>
+          <div class="stat"><div class="n">120</div><strong>Dias de blindagem</strong><p class="muted small" style="margin:3px 0 0;">suporte, reforços e testes</p></div>
+          <div class="stat"><div class="n">01</div><strong>Sistema final</strong><p class="muted small" style="margin:3px 0 0;">prontidão instalada</p></div>
+        </div>
+      </div>
+
+      <div class="footer"><span>Protocolo Escudo</span><span>Capa</span></div>
+    </section>
+
+    <section class="page" id="visao">
+      <div class="section-head">
+        <div class="section-number">01</div>
+        <div>
+          <div class="eyebrow">Visão em 30 segundos</div>
+          <h2>O que a empresa compra</h2>
+          <p class="muted">Uma implantação de sistema de prontidão em crise. Não é curso, não é palestra e não é reunião recorrente sem consequência.</p>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <div class="card">
+          <div class="icon-title"><span class="icon"><svg viewBox="0 0 24 24"><path d="M12 3l7 4v5c0 5-3.5 8-7 9-3.5-1-7-4-7-9V7l7-4z"></path></svg></span><h3 style="margin:0;">O que é</h3></div>
+          <p>Um programa híbrido que prepara a liderança para decidir, comunicar e proteger a reputação sob pressão.</p>
+        </div>
+        <div class="card">
+          <div class="icon-title"><span class="icon"><svg viewBox="0 0 24 24"><path d="M12 12a4 4 0 1 0 0-8a4 4 0 0 0 0 8z"></path><path d="M4 20a8 8 0 0 1 16 0"></path></svg></span><h3 style="margin:0;">Para quem é</h3></div>
+          <p>Empresas com alta exposição, decisões sensíveis, risco reputacional, operação crítica ou liderança pública.</p>
+        </div>
+        <div class="card">
+          <div class="icon-title"><span class="icon"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"></path></svg></span><h3 style="margin:0;">O que entrega</h3></div>
+          <p>Gabinete, fluxos, mensagens, porta voz, base de capacitação, simulação, testes e protocolo final.</p>
+        </div>
+      </div>
+
+      <div class="graphic" style="margin-top:10px;">
+        <h3>Como funciona</h3>
+        <div class="method-flow">
+          <div class="method-card"><div class="letter">1</div><strong>Diagnosticar</strong><p class="muted small">riscos e prioridades</p></div>
+          <div class="method-card"><div class="letter">2</div><strong>Capacitar</strong><p class="muted small">trilhas por função</p></div>
+          <div class="method-card"><div class="letter">3</div><strong>Implantar</strong><p class="muted small">estrutura essencial</p></div>
+          <div class="method-card"><div class="letter">4</div><strong>Validar</strong><p class="muted small">certificação e salas</p></div>
+          <div class="method-card"><div class="letter">5</div><strong>Simular</strong><p class="muted small">The Worst Day</p></div>
+          <div class="method-card"><div class="letter">6</div><strong>Sustentar</strong><p class="muted small">blindagem assistida</p></div>
+        </div>
+      </div>
+
+      <div class="quote-box" style="margin-top:10px;">
+        <h3>Em até 30 dias, a empresa já possui</h3>
+        <div class="check-grid">
+          <div class="check-item">Gabinete de crise definido.</div>
+          <div class="check-item">Responsáveis nomeados.</div>
+          <div class="check-item">Fluxo de acionamento.</div>
+          <div class="check-item">Checklist de primeira resposta.</div>
+          <div class="check-item">Mensagens iniciais.</div>
+          <div class="check-item">Q&A crítico inicial.</div>
+          <div class="check-item">Matriz de riscos prioritários.</div>
+          <div class="check-item">Central Escudo de Prontidão liberada.</div>
+        </div>
+      </div>
+
+      <div class="footer"><span>Protocolo Escudo</span><span>Visão em 30 segundos</span></div>
+    </section>
+
+    <section class="page" id="risco">
+      <div class="section-head">
+        <div class="section-number">02</div>
+        <div>
+          <div class="eyebrow">O risco de improvisar</div>
+          <h2>Crise não espera alinhamento interno</h2>
+          <p class="muted">A pior hora para decidir quem fala, quem aprova, quem responde e quem assume comando é quando todos já esperam uma resposta.</p>
+        </div>
+      </div>
+
+      <div class="quote-box">
+        <h3>Sem protocolo, a crise decide pela empresa</h3>
+        <p class="lead" style="margin-bottom:0;">Uma crise mal conduzida pode custar reputação, clientes, contratos, confiança interna, imprensa negativa, processos e perda de autoridade.</p>
+      </div>
+
+      <div class="risk-strip">
+        <div class="risk-card"><strong>A liderança demora a responder</strong><span class="muted">O silêncio abre espaço para ruído e especulação.</span></div>
+        <div class="risk-card"><strong>Áreas falam versões diferentes</strong><span class="muted">Jurídico, comunicação, operação e RH entram em conflito.</span></div>
+        <div class="risk-card"><strong>Colaboradores recebem ruído antes de orientação</strong><span class="muted">A comunicação interna fica reativa e desorganizada.</span></div>
+        <div class="risk-card"><strong>Stakeholders pressionam sem resposta clara</strong><span class="muted">Clientes, conselhos, parceiros e reguladores aumentam a tensão.</span></div>
+        <div class="risk-card"><strong>Redes e imprensa definem a narrativa</strong><span class="muted">A organização deixa de conduzir a percepção pública.</span></div>
+        <div class="risk-card"><strong>A confiança cai antes da apuração terminar</strong><span class="muted">A resposta é julgada antes do relatório final existir.</span></div>
+      </div>
+
+      <div class="graphic" style="margin-top:10px;">
+        <h3>Matriz de prioridade em crise</h3>
+        <div class="matrix">
+          <div></div><div class="axis">Baixa probabilidade</div><div class="axis">Alta probabilidade</div>
+          <div class="axis y">Alto impacto</div>
+          <div class="matrix-cell soft"><strong>Preparar resposta</strong><span>Risco raro, mas sensível. Exige plano preventivo.</span></div>
+          <div class="matrix-cell dark"><strong>Ação imediata</strong><span>Risco provável e grave. Deve entrar no plano central.</span></div>
+          <div class="axis y">Baixo impacto</div>
+          <div class="matrix-cell"><strong>Monitorar</strong><span>Risco controlável, com baixa urgência.</span></div>
+          <div class="matrix-cell soft"><strong>Prevenir</strong><span>Risco frequente, mas administrável com rotina.</span></div>
+        </div>
+      </div>
+
+      <div class="footer"><span>Protocolo Escudo</span><span>Risco de improvisar</span></div>
+    </section>
+
+    <section class="page" id="funcionamento">
+      <div class="section-head">
+        <div class="section-number">03</div>
+        <div>
+          <div class="eyebrow">Como funciona</div>
+          <h2>30 dias, 60 dias e 120 dias</h2>
+          <p class="muted">A entrega foi desenhada para gerar impacto rápido e sustentar a evolução ao longo do tempo.</p>
+        </div>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-item"><div class="period">Dias 1 a 10</div><div><h3>Diagnóstico executivo</h3><p class="muted">Abertura executiva, entrevistas, riscos, stakeholders, processos sensíveis e prioridades.</p><span class="tag">risco</span><span class="tag">prioridade</span></div><div class="result-badge"><strong>Saída:</strong><br />plano dos primeiros 60 dias</div></div>
+        <div class="timeline-item"><div class="period">Dias 1 a 10</div><div><h3>Central Escudo de Prontidão</h3><p class="muted">Trilhas gravadas por função, checklists, estudos de caso, materiais e avaliações.</p><span class="tag">base</span><span class="tag">trilhas</span></div><div class="result-badge"><strong>Saída:</strong><br />capacitação flexível</div></div>
+        <div class="timeline-item"><div class="period">Dias 11 a 30</div><div><h3>Estrutura Essencial de Resposta</h3><p class="muted">Gabinete, papéis, fluxos, canais, checklist, mensagens iniciais e Q&A crítico.</p><span class="tag">estrutura</span><span class="tag">resposta</span></div><div class="result-badge"><strong>Saída:</strong><br />resposta mínima pronta</div></div>
+        <div class="timeline-item"><div class="period">Dias 31 a 45</div><div><h3>Certificação e Salas de Decisão</h3><p class="muted">Avaliações individuais, por função e em grupo, com sessões ao vivo para casos reais.</p><span class="tag">validação</span><span class="tag">casos reais</span></div><div class="result-badge"><strong>Saída:</strong><br />lacunas identificadas</div></div>
+        <div class="timeline-item"><div class="period">Dias 45 a 60</div><div><h3>The Worst Day</h3><p class="muted">Simulação realista com pressão progressiva, acionamento do gabinete e decisão em tempo real.</p><span class="tag">simulação</span><span class="tag">teste</span></div><div class="result-badge"><strong>Saída:</strong><br />plano de correção</div></div>
+        <div class="timeline-item"><div class="period">Dias 61 a 180</div><div><h3>Blindagem assistida</h3><p class="muted">Suporte estratégico, reforços práticos, testes surpresa controlados, revisão e atualização do protocolo.</p><span class="tag">suporte</span><span class="tag">evolução</span></div><div class="result-badge"><strong>Saída:</strong><br />protocolo vivo</div></div>
+      </div>
+
+      <div class="footer"><span>Protocolo Escudo</span><span>Como funciona</span></div>
+    </section>
+
+    <section class="page" id="central">
+      <div class="section-head">
+        <div class="section-number">04</div>
+        <div>
+          <div class="eyebrow">Capacitação flexível</div>
+          <h2>Central Escudo de Prontidão</h2>
+          <p class="muted">A Central Escudo de Prontidão é o ativo de capacitação do programa. Ela evita que o ao vivo vire aula repetitiva e permite que cada pessoa estude o que precisa para sua função.</p>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card dark">
+          <h3>Formato recomendado</h3>
+          <p>Vídeos curtos, checklists, modelos, estudos de caso, exercícios práticos e quizzes por trilha.</p>
+        </div>
+        <div class="card">
+          <h3>Valor para a empresa</h3>
+          <p>Treina os participantes atuais, permite reforço futuro e ajuda a capacitar novos colaboradores sem depender de novas aulas ao vivo.</p>
+        </div>
+      </div>
+
+      <div class="track-grid">
+        <div class="track-card"><h3>Alta liderança</h3><p class="muted">Crises, decisão sob pressão, cadeia de comando, postura, reputação e confiança.</p></div>
+        <div class="track-card"><h3>Gabinete de crise</h3><p class="muted">Papéis, fluxo de acionamento, criticidade, registro de decisão e primeira resposta.</p></div>
+        <div class="track-card"><h3>Porta voz e exposição</h3><p class="muted">Mensagens chave, imprensa, redes sociais, perguntas hostis e pronunciamento.</p></div>
+        <div class="track-card"><h3>Gestores e multiplicadores</h3><p class="muted">Orientação de equipes, escalonamento, prevenção de ruído e sustentação da mensagem.</p></div>
+        <div class="track-card"><h3>Colaboradores sensíveis</h3><p class="muted">Conduta na ponta, canais oficiais, vazamento, preservação de informação e escalonamento.</p></div>
+      </div>
+
+      <div class="note"><strong>Regra de valor:</strong> o conteúdo gravado ensina o padrão. O ao vivo entra apenas para problemas reais, decisões sensíveis, pressão e particularidades da empresa.</div>
+
+      <div class="footer"><span>Protocolo Escudo</span><span>Central de Prontidão</span></div>
+    </section>
+
+    <section class="page" id="decisao">
+      <div class="section-head">
+        <div class="section-number">05</div>
+        <div>
+          <div class="eyebrow">Ao vivo de alto valor</div>
+          <h2>Salas de Decisão e Certificação</h2>
+          <p class="muted">O ao vivo não é aula. É sala de decisão, validação, pressão e correção de casos reais da empresa.</p>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <div class="card soft"><h3>Avaliação individual</h3><p class="muted">Cenários práticos, condutas corretas, escalonamento, decisão e comunicação.</p></div>
+        <div class="card soft"><h3>Avaliação por função</h3><p class="muted">Cada perfil é avaliado pelo que precisa executar em um cenário crítico.</p></div>
+        <div class="card soft"><h3>Avaliação em grupo</h3><p class="muted">Exercício de mesa com pressão, tempo limitado, acionamento e mensagem.</p></div>
+      </div>
+
+      <h3 style="margin-top:12px;">Salas de Decisão Escudo</h3>
+      <div class="decision-grid">
+        <div class="decision-card"><div class="index">1</div><div><strong>Riscos reais da empresa</strong><p class="muted small" style="margin:2px 0 0;">Validação do diagnóstico, vulnerabilidades e riscos prioritários.</p></div></div>
+        <div class="decision-card"><div class="index">2</div><div><strong>Gabinete e cadeia de comando</strong><p class="muted small" style="margin:2px 0 0;">Teste de papéis, fluxo, autoridade, acionamento e tomada de decisão.</p></div></div>
+        <div class="decision-card"><div class="index">3</div><div><strong>Mensagem e Q&A crítico</strong><p class="muted small" style="margin:2px 0 0;">Construção de respostas para cenários sensíveis e públicos prioritários.</p></div></div>
+        <div class="decision-card"><div class="index">4</div><div><strong>Porta voz sob pressão</strong><p class="muted small" style="margin:2px 0 0;">Simulação de perguntas difíceis, pronunciamento e exposição pública.</p></div></div>
+      </div>
+
+      <table>
+        <thead><tr><th>Formato</th><th>O que substitui</th><th>Por que gera mais valor</th></tr></thead>
+        <tbody>
+          <tr><td>Sala de Decisão</td><td>Aula ao vivo genérica.</td><td>Resolve riscos reais e decisões sensíveis da empresa.</td></tr>
+          <tr><td>Certificação</td><td>Presença passiva em treinamento.</td><td>Mostra quem compreendeu, quem aplica e quem precisa de reforço.</td></tr>
+          <tr><td>Exercício em grupo</td><td>Discussão teórica.</td><td>Testa coordenação, tempo de resposta e clareza da mensagem.</td></tr>
+        </tbody>
+      </table>
+
+      <div class="footer"><span>Protocolo Escudo</span><span>Salas de Decisão</span></div>
+    </section>
+
+    <section class="page" id="simulacao">
+      <div class="section-head">
+        <div class="section-number">06</div>
+        <div>
+          <div class="eyebrow">Teste de prontidão</div>
+          <h2>The Worst Day, Simulação O Pior Dia</h2>
+          <p class="muted">Uma simulação realista em que a liderança enfrenta uma crise progressiva, com pressão interna, externa, operacional e reputacional.</p>
+        </div>
+      </div>
+
+      <div class="sim-grid">
+        <div class="graphic">
+          <h3>Estrutura da simulação</h3>
+          <div class="sim-steps">
+            <div class="sim-step"><span>1</span><div><strong>Briefing inicial</strong><p class="muted small" style="margin:2px 0 0;">papéis, regras, canais e cenário inicial</p></div></div>
+            <div class="sim-step"><span>2</span><div><strong>Resposta inicial</strong><p class="muted small" style="margin:2px 0 0;">acionamento do gabinete e primeira decisão</p></div></div>
+            <div class="sim-step"><span>3</span><div><strong>Escalonamento</strong><p class="muted small" style="margin:2px 0 0;">novos gatilhos, pressão e ruído crescente</p></div></div>
+            <div class="sim-step"><span>4</span><div><strong>Clímax</strong><p class="muted small" style="margin:2px 0 0;">decisão crítica e posicionamento institucional</p></div></div>
+            <div class="sim-step"><span>5</span><div><strong>Debriefing</strong><p class="muted small" style="margin:2px 0 0;">análise, aprendizados e plano de correção</p></div></div>
+          </div>
+        </div>
+
+        <div class="graphic">
+          <h3>A empresa descobre onde falha antes de falhar publicamente</h3>
+          <table style="margin-top:6px;">
+            <thead><tr><th>Critério</th><th>Leitura</th></tr></thead>
+            <tbody>
+              <tr><td>Comunicação</td><td>clareza, coerência e timing</td></tr>
+              <tr><td>Decisão</td><td>critério, velocidade e responsabilidade</td></tr>
+              <tr><td>Coordenação</td><td>papéis, fluxo e alinhamento</td></tr>
+              <tr><td>Postura</td><td>presença, controle emocional e firmeza</td></tr>
+              <tr><td>Exposição</td><td>resposta a públicos críticos e pressão externa</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="grid-3" style="margin-top:10px;">
+        <div class="card soft"><h3>Antes</h3><p class="muted">Preparação do cenário, papéis, regras e objetivos de avaliação.</p></div>
+        <div class="card soft"><h3>Durante</h3><p class="muted">Gatilhos progressivos, decisões em tempo real e pressão simulada.</p></div>
+        <div class="card soft"><h3>Depois</h3><p class="muted">Relatório técnico, debriefing e plano de ação corretiva.</p></div>
+      </div>
+
+      <div class="note"><strong>Por que acontece cedo:</strong> a simulação entre os dias 45 e 60 gera impacto rápido, expõe falhas reais e cria direção objetiva para a blindagem assistida.</div>
+
+      <div class="footer"><span>Protocolo Escudo</span><span>The Worst Day</span></div>
+    </section>
+
+    <section class="page" id="blindagem">
+      <div class="section-head">
+        <div class="section-number">07</div>
+        <div>
+          <div class="eyebrow">Continuidade premium</div>
+          <h2>Blindagem assistida por 120 dias</h2>
+          <p class="muted">Depois da implantação e da simulação, o programa entra em fase de sustentação: revisar, corrigir, testar, reforçar e manter o protocolo vivo.</p>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card dark"><h3>O que não é</h3><p>Não é sequência de aulas extras. Não é reunião sem pauta. Não é suporte genérico para tirar dúvidas.</p></div>
+        <div class="card"><h3>O que é</h3><p>Acompanhamento estratégico para corrigir falhas, testar fluxos e reforçar lideranças críticas ao longo de 120 dias.</p></div>
+      </div>
+
+      <div class="risk-strip">
+        <div class="risk-card"><strong>Suporte estratégico</strong><span class="muted">Apoio consultivo em decisões sensíveis e ajustes do protocolo.</span></div>
+        <div class="risk-card"><strong>Revisões mensais</strong><span class="muted">Atualização de riscos, stakeholders, mensagens e fluxos.</span></div>
+        <div class="risk-card"><strong>Reforços práticos</strong><span class="muted">Retreinamento de liderança, porta voz e participantes críticos.</span></div>
+        <div class="risk-card"><strong>Testes surpresa controlados</strong><span class="muted">Testes autorizados para medir acionamento, tempo de resposta e coordenação.</span></div>
+        <div class="risk-card"><strong>Relatórios de prontidão</strong><span class="muted">Registro de evolução, falhas observadas e correções recomendadas.</span></div>
+        <div class="risk-card"><strong>Protocolo final atualizado</strong><span class="muted">Consolidação do sistema após testes, ajustes e reavaliação.</span></div>
+      </div>
+
+      <table>
+        <thead><tr><th>Teste controlado</th><th>O que testa</th><th>Limite de segurança</th></tr></thead>
+        <tbody>
+          <tr><td>Incidente interno simulado</td><td>Tempo de acionamento e primeira resposta.</td><td>Ambiente fechado e autorizado pelo sponsor.</td></tr>
+          <tr><td>Ligação simulada de stakeholder</td><td>Escalonamento, postura e registro.</td><td>Nenhum público externo real é acionado.</td></tr>
+          <tr><td>Pergunta hostil ao porta voz</td><td>Mensagem, firmeza e controle emocional.</td><td>Simulação conduzida por equipe autorizada.</td></tr>
+          <tr><td>Vazamento fictício controlado</td><td>Fluxo de comunicação e contenção de ruído.</td><td>Sem exposição pública, sem pânico operacional.</td></tr>
+        </tbody>
+      </table>
+
+      <div class="footer"><span>Protocolo Escudo</span><span>Blindagem assistida</span></div>
+    </section>
+
+    <section class="page" id="final">
+      <div class="section-head">
+        <div class="section-number">08</div>
+        <div>
+          <div class="eyebrow">Resultado final</div>
+          <h2>O que fica implementado</h2>
+          <p class="muted">Ao final, a organização recebe um sistema prático para prevenir, responder, comunicar, testar e evoluir diante de cenários críticos.</p>
+        </div>
+      </div>
+
+      <div class="card dark">
+        <h3>Sistema Escudo implementado</h3>
+        <p>A empresa sai com liderança treinada, gabinete de crise estruturado, mensagens preparadas, fluxos definidos, simulação realizada, relatório técnico, plano de ação e rotina de blindagem.</p>
+      </div>
+
+      <div class="deliveries">
+        <div class="delivery-card"><h3>Central Escudo de Prontidão</h3><p class="muted">Trilhas gravadas para participantes atuais e novos colaboradores.</p></div>
+        <div class="delivery-card"><h3>Protocolo documentado</h3><p class="muted">Fluxos, papéis, critérios de acionamento e responsabilidades.</p></div>
+        <div class="delivery-card"><h3>Gabinete estruturado</h3><p class="muted">Grupo central de resposta com papéis claros.</p></div>
+        <div class="delivery-card"><h3>Mensagens críticas</h3><p class="muted">Q&A, comunicados, tom de voz e pronunciamentos base.</p></div>
+        <div class="delivery-card"><h3>Histórico de simulações</h3><p class="muted">Relatórios, correções, evidências e plano de revisão.</p></div>
+      </div>
+
+      <h3 style="margin-top:11px;">Para funcionar, o programa exige</h3>
+      <div class="check-grid">
+        <div class="check-item">1 sponsor executivo.</div>
+        <div class="check-item">2 a 6 líderes centrais.</div>
+        <div class="check-item">Acesso a informações críticas.</div>
+        <div class="check-item">Indicação dos participantes por trilha.</div>
+        <div class="check-item">Participação na simulação.</div>
+        <div class="check-item">Validação dos protocolos.</div>
+      </div>
+
+      <div class="quote-box" style="margin-top:10px;">
+        <h3>Texto padrão para apresentação</h3>
+        <p>O Protocolo Escudo instala em até 60 dias uma estrutura essencial de resposta à crise, com diagnóstico, gabinete, fluxos, mensagens, porta voz treinado e simulação realista. Depois, acompanha por 120 dias a aplicação do protocolo com suporte estratégico, reforços práticos e testes surpresa controlados. O objetivo é simples: fazer a empresa responder melhor quando reputação, liderança e confiança estiverem sob pressão.</p>
+      </div>
+
+      <div class="note"><strong>Fechamento:</strong> crise não espera alinhamento interno. O Protocolo Escudo existe para que a empresa não precise improvisar quando todos esperam uma resposta.</div>
+
+      <div class="footer"><span>Protocolo Escudo</span><span>Sistema implementado</span></div>
+    </section>
+
+  </main>
+</body>
+</html>
