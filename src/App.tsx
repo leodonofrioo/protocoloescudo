@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import { Moon, Sun, Shield } from 'lucide-react';
+import { Moon, Sun } from 'lucide-react';
 import Hub from './pages/Hub';
 import Detalhamento from './pages/Detalhamento';
 import TheWorstDay from './pages/TheWorstDay';

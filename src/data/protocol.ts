@@ -118,7 +118,7 @@ export const protocolData = {
       id: "matriz",
       title: "Matriz de Riscos",
       description: "Mapeamento por probabilidade e impacto, com plano de resposta por quadrante.",
-      status: "coming_soon",
+      status: "available_in_doc",
       icon: "Grid"
     },
     {

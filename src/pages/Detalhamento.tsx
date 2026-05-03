@@ -1,82 +1,25 @@
-import { useEffect, useState } from 'react';
-import { Printer } from 'lucide-react';
+import DocumentShell, { type DocumentSection } from '../components/DocumentShell';
 import './Detalhamento.css';
 
+const sections: DocumentSection[] = [
+  { id: 'capa', title: 'Capa' },
+  { id: 'premissa', title: 'A Premissa e o Risco' },
+  { id: 'o-que-e', title: 'O que é o Protocolo' },
+  { id: 'papeis', title: 'Atuação Conjunta' },
+  { id: 'cronograma', title: 'Cronograma Visual' },
+  { id: 'gabinete', title: 'Gabinete de Crise' },
+  { id: 'matriz', title: 'Matriz de Riscos' },
+  { id: 'central', title: 'Central de Prontidão' },
+  { id: 'certificacao', title: 'Certificação' },
+  { id: 'worst-day', title: 'The Worst Day' },
+  { id: 'blindagem', title: 'Blindagem e Recorrência' },
+  { id: 'dimensionamento', title: 'Dimensionamento' },
+  { id: 'confidencialidade', title: 'Confidencialidade' },
+];
+
 export default function Detalhamento() {
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const [activeSection, setActiveSection] = useState('capa');
-
-  const sections = [
-    { id: 'capa', title: 'Capa' },
-    { id: 'premissa', title: 'A Premissa e o Risco' },
-    { id: 'o-que-e', title: 'O que é o Protocolo' },
-    { id: 'papeis', title: 'Atuação Conjunta' },
-    { id: 'cronograma', title: 'Cronograma Visual' },
-    { id: 'gabinete', title: 'Gabinete de Crise' },
-    { id: 'matriz', title: 'Matriz de Riscos' },
-    { id: 'central', title: 'Central de Prontidão' },
-    { id: 'certificacao', title: 'Certificação' },
-    { id: 'worst-day', title: 'The Worst Day' },
-    { id: 'blindagem', title: 'Blindagem e Recorrência' },
-    { id: 'dimensionamento', title: 'Dimensionamento' },
-    { id: 'confidencialidade', title: 'Confidencialidade' }
-  ];
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const totalScroll = document.documentElement.scrollTop;
-      const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scroll = `${totalScroll / windowHeight}`;
-      setScrollProgress(Number(scroll) * 100);
-
-      for (const sec of [...sections].reverse()) {
-        const el = document.getElementById(sec.id);
-        if (el && el.getBoundingClientRect().top <= 100) {
-          setActiveSection(sec.id);
-          break;
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const handlePrint = () => {
-    window.print();
-  };
-
   return (
-    <div className="detalhamento-layout">
-      {/* Progress Bar */}
-      <div className="progress-bar-container no-print">
-        <div className="progress-bar" style={{ width: `${scrollProgress}%` }}></div>
-      </div>
-
-      {/* Floating TOC Sidebar */}
-      <aside className="toc-sidebar no-print">
-        <div className="toc-header">
-          <h3>Índice</h3>
-          <button className="print-btn" onClick={handlePrint} title="Exportar PDF">
-            <Printer size={16} /> Exportar
-          </button>
-        </div>
-        <nav className="toc-nav">
-          {sections.map(sec => (
-            <a 
-              key={sec.id} 
-              href={`#${sec.id}`}
-              className={activeSection === sec.id ? 'active' : ''}
-            >
-              {sec.title}
-            </a>
-          ))}
-        </nav>
-      </aside>
-
-      {/* Document Content */}
-      <article className="document-paper">
-
+    <DocumentShell sections={sections}>
     <section className="page cover" id="capa">
       <div>
         <div className="cover-top">
@@ -568,7 +511,6 @@ export default function Detalhamento() {
 
     </section>
 
-      </article>
-    </div>
+    </DocumentShell>
   );
 }
