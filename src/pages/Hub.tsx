@@ -9,6 +9,7 @@ export default function Hub() {
     { title: 'Diagnóstico Executivo', progress: 100, status: 'Concluído', route: '/diagnostico' },
     { title: 'Matriz de Riscos', progress: 100, status: 'Concluído', route: '/matriz-riscos' },
     { title: 'Manual do Gabinete de Crise', progress: 100, status: 'Concluído', route: '/gabinete-crise' },
+    { title: 'Pre\u00e7os e Politicas comerciais', progress: 100, status: 'Concluído', route: '/precos-politicas-comerciais' },
     { title: 'Mensagens Críticas e Q&A', progress: 0, status: 'Pendente', route: null },
     { title: 'Fluxo de Acionamento', progress: 0, status: 'Pendente', route: null },
     { title: 'Relatórios de Prontidão', progress: 0, status: 'Pendente', route: null },

@@ -8,6 +8,7 @@ import TheWorstDay from './pages/TheWorstDay';
 import MatrizRiscos from './pages/MatrizRiscos';
 import CentralProntidao from './pages/CentralProntidao';
 import GabineteCrise from './pages/GabineteCrise';
+import PrecosPoliticasComerciais from './pages/PrecosPoliticasComerciais';
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -50,6 +51,7 @@ function App() {
             <Route path="/matriz-riscos" element={<MatrizRiscos />} />
             <Route path="/central-prontidao" element={<CentralProntidao />} />
             <Route path="/gabinete-crise" element={<GabineteCrise />} />
+            <Route path="/precos-politicas-comerciais" element={<PrecosPoliticasComerciais />} />
           </Routes>
         </main>
       </div>
