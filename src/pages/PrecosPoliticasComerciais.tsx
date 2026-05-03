@@ -360,7 +360,10 @@ export default function PrecosPoliticasComerciais() {
                     min="0"
                     step="500"
                     value={item.value}
-                    onChange={event => updateFixedItem(item.id, 'value', event.currentTarget.valueAsNumber)}
+                    onChange={event => {
+                      const value = event.currentTarget.valueAsNumber;
+                      updateFixedItem(item.id, 'value', value);
+                    }}
                     aria-label={`Valor - ${item.label}`}
                   />
                 </div>
@@ -382,15 +385,17 @@ export default function PrecosPoliticasComerciais() {
                   min={config.includedResponsibles}
                   step="1"
                   value={responsibleCount}
-                  onChange={event =>
+                  onChange={event => {
+                    const value = event.currentTarget.valueAsNumber;
+
                     updateConfig(current => ({
                       ...current,
                       responsibleCount: Math.max(
                         current.includedResponsibles,
-                        Math.floor(normalizeNumber(event.currentTarget.valueAsNumber)),
+                        Math.floor(normalizeNumber(value)),
                       ),
-                    }))
-                  }
+                    }));
+                  }}
                   aria-label="Total de responsaveis"
                 />
               </label>
@@ -407,12 +412,14 @@ export default function PrecosPoliticasComerciais() {
                   min="0"
                   step="500"
                   value={config.extraResponsibleUnitValue}
-                  onChange={event =>
+                  onChange={event => {
+                    const value = event.currentTarget.valueAsNumber;
+
                     updateConfig(current => ({
                       ...current,
-                      extraResponsibleUnitValue: normalizeNumber(event.currentTarget.valueAsNumber),
-                    }))
-                  }
+                      extraResponsibleUnitValue: normalizeNumber(value),
+                    }));
+                  }}
                   aria-label="Valor por responsavel adicional"
                 />
               </label>
@@ -452,9 +459,10 @@ export default function PrecosPoliticasComerciais() {
                     min="0"
                     step="1"
                     value={item.quantity}
-                    onChange={event =>
-                      updateVariableItem(item.id, 'quantity', event.currentTarget.valueAsNumber)
-                    }
+                    onChange={event => {
+                      const value = event.currentTarget.valueAsNumber;
+                      updateVariableItem(item.id, 'quantity', value);
+                    }}
                     aria-label={`Quantidade - ${item.label}`}
                   />
                   <input
@@ -462,9 +470,10 @@ export default function PrecosPoliticasComerciais() {
                     min="0"
                     step="500"
                     value={item.unitValue}
-                    onChange={event =>
-                      updateVariableItem(item.id, 'unitValue', event.currentTarget.valueAsNumber)
-                    }
+                    onChange={event => {
+                      const value = event.currentTarget.valueAsNumber;
+                      updateVariableItem(item.id, 'unitValue', value);
+                    }}
                     aria-label={`Valor unitario - ${item.label}`}
                   />
                   <strong>{currencyFormatter.format(itemTotal)}</strong>
@@ -504,12 +513,14 @@ export default function PrecosPoliticasComerciais() {
                 type="number"
                 step="1"
                 value={config.commercialAdjustmentRate}
-                onChange={event =>
+                onChange={event => {
+                  const value = event.currentTarget.valueAsNumber;
+
                   updateConfig(current => ({
                     ...current,
-                    commercialAdjustmentRate: normalizeRate(event.currentTarget.valueAsNumber),
-                  }))
-                }
+                    commercialAdjustmentRate: normalizeRate(value),
+                  }));
+                }}
                 aria-label="Ajuste comercial percentual"
               />
             </label>
