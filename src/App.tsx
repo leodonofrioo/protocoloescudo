@@ -9,6 +9,7 @@ import MatrizRiscos from './pages/MatrizRiscos';
 import CentralProntidao from './pages/CentralProntidao';
 import GabineteCrise from './pages/GabineteCrise';
 import PrecosPoliticasComerciais from './pages/PrecosPoliticasComerciais';
+import Apresentacao from './pages/Apresentacao';
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -52,6 +53,7 @@ function App() {
             <Route path="/central-prontidao" element={<CentralProntidao />} />
             <Route path="/gabinete-crise" element={<GabineteCrise />} />
             <Route path="/precos-politicas-comerciais" element={<PrecosPoliticasComerciais />} />
+            <Route path="/apresentacao" element={<Apresentacao />} />
           </Routes>
         </main>
       </div>
