@@ -870,7 +870,11 @@ type PresentationDeckProps = {
 };
 
 export function PresentationDeck({ slides, deckLabel = 'Apresentação comercial' }: PresentationDeckProps) {
-  const [activeSlide, setActiveSlide] = useState(0);
+  const [activeSlide, setActiveSlide] = useState(() => {
+    const requestedSlide = Number(new URLSearchParams(window.location.search).get('slide'));
+    if (!Number.isFinite(requestedSlide)) return 0;
+    return Math.max(0, Math.min(slides.length - 1, requestedSlide - 1));
+  });
   const [isFullscreen, setIsFullscreen] = useState(false);
   const stageRef = useRef<HTMLElement | null>(null);
   const touchStartX = useRef<number | null>(null);

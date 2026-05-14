@@ -1375,3 +1375,894 @@ body.presentation-mode {
     min-height: 420px;
   }
 }
+
+/* Advanced mobile responsiveness */
+.presentation-stage {
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --mobile-top-space: 76px;
+  --mobile-bottom-space: 112px;
+  --mobile-controls-space: 0px;
+}
+
+.sales-slide {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  scroll-padding-top: var(--mobile-top-space);
+  scroll-padding-bottom: var(--mobile-bottom-space);
+}
+
+@media (max-width: 1024px) {
+  .presentation-topline {
+    left: calc(18px + var(--safe-left));
+    right: calc(18px + var(--safe-right));
+  }
+
+  .presentation-progress {
+    left: calc(18px + var(--safe-left));
+    right: calc(18px + var(--safe-right));
+  }
+
+  .presentation-controls {
+    left: calc(18px + var(--safe-left));
+    right: calc(18px + var(--safe-right));
+    bottom: calc(14px + var(--safe-bottom));
+  }
+
+  .sales-slide {
+    padding: calc(88px + var(--safe-top)) max(34px, calc(30px + var(--safe-left))) calc(92px + var(--safe-bottom));
+  }
+
+  .slide-content {
+    grid-template-columns: 1fr;
+    align-content: start;
+    align-items: start;
+    gap: 22px;
+  }
+
+  .slide-copy,
+  .slide-visual {
+    width: min(100%, 900px);
+  }
+
+  .slide-copy {
+    max-width: 900px;
+  }
+
+  .sales-slide h1 {
+    font-size: clamp(32px, 5.6vw, 58px);
+    line-height: 1;
+  }
+
+  .slide-text p {
+    max-width: 860px;
+  }
+
+  .pricing-tiers,
+  .gauge-panel,
+  .storyboard,
+  .indicator-dashboard {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .question-map,
+  .crossing-chart,
+  .risk-matrix-visual,
+  .hub-mock,
+  .red-button-visual {
+    min-height: 380px;
+  }
+}
+
+@media (max-width: 767px) {
+  .presentation-stage {
+    --mobile-top-space: 68px;
+    --mobile-bottom-space: 128px;
+  }
+
+  .presentation-topline {
+    top: calc(10px + var(--safe-top));
+    left: calc(10px + var(--safe-left));
+    right: calc(10px + var(--safe-right));
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  .presentation-back,
+  .presentation-counter,
+  .presentation-fullscreen {
+    min-height: 38px;
+    padding: 0 10px;
+    border-radius: 8px;
+    font-size: 12px;
+  }
+
+  .presentation-back,
+  .presentation-fullscreen {
+    max-width: 116px;
+  }
+
+  .presentation-progress {
+    top: calc(58px + var(--safe-top));
+    left: calc(10px + var(--safe-left));
+    right: calc(10px + var(--safe-right));
+    height: 3px;
+  }
+
+  .presentation-controls {
+    left: calc(10px + var(--safe-left));
+    right: calc(10px + var(--safe-right));
+    bottom: calc(10px + var(--safe-bottom));
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  .presentation-controls button {
+    min-height: 44px;
+    border-radius: 8px;
+    font-size: 13px;
+  }
+
+  .presentation-dots {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    gap: 3px;
+    min-height: 13px;
+    padding: 0 4px;
+    overflow: hidden;
+  }
+
+  .presentation-dots button {
+    width: 6px;
+    min-height: 6px;
+    height: 6px;
+    flex: 0 0 auto;
+  }
+
+  .presentation-dots button.active {
+    width: 24px;
+  }
+
+  .presentation-side-control {
+    display: none;
+  }
+
+  .sales-slide {
+    gap: 14px;
+    padding: calc(var(--mobile-top-space) + var(--safe-top)) calc(18px + var(--safe-left)) calc(var(--mobile-bottom-space) + var(--safe-bottom)) calc(18px + var(--safe-left));
+    background-size: auto, auto, 48px 48px;
+  }
+
+  .sales-slide-cover,
+  .sales-slide-closing {
+    background:
+      radial-gradient(circle at 50% 42%, rgba(200, 164, 93, 0.13), transparent 32%),
+      linear-gradient(120deg, #05070a, #0a0d12 62%, #101722);
+  }
+
+  .slide-content {
+    gap: 18px;
+  }
+
+  .slide-brand {
+    min-height: 34px;
+    margin-bottom: 14px;
+    padding: 0 10px;
+    font-size: 9px;
+    letter-spacing: 0.06em;
+  }
+
+  .slide-brand img {
+    width: 68px;
+  }
+
+  .slide-eyebrow {
+    margin-bottom: 8px;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+  }
+
+  .sales-slide h1 {
+    font-size: clamp(28px, 8.4vw, 42px);
+    line-height: 1.03;
+    overflow-wrap: normal;
+  }
+
+  .slide-text {
+    gap: 9px;
+    margin-top: 14px;
+  }
+
+  .slide-text p {
+    font-size: 15px;
+    line-height: 1.45;
+    font-weight: 650;
+  }
+
+  .cover-minimal {
+    width: 100%;
+    gap: 16px;
+    align-content: center;
+    min-height: calc(100dvh - var(--mobile-top-space) - var(--mobile-bottom-space) - var(--safe-top) - var(--safe-bottom));
+  }
+
+  .cover-version-tag {
+    min-height: 28px;
+    padding: 0 11px;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+  }
+
+  .cover-logo {
+    width: min(286px, 74vw);
+  }
+
+  .cover-text {
+    gap: 9px;
+    max-width: 340px;
+  }
+
+  .cover-text p:first-child {
+    font-size: clamp(21px, 6.1vw, 30px);
+    line-height: 1.18;
+  }
+
+  .cover-text p {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .cover-shield {
+    width: 92px;
+    height: 92px;
+  }
+
+  .slide-footer {
+    gap: 6px;
+    padding-top: 10px;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+  }
+
+  .visual-card-grid,
+  .visual-checklist,
+  .visual-documentCards,
+  .shield-assets,
+  .visual-columns,
+  .timeline-visual,
+  .risk-matrix-visual,
+  .org-chart,
+  .indicator-dashboard,
+  .gauge-panel,
+  .storyboard,
+  .cycle-visual,
+  .red-button-cards,
+  .confidential-visual,
+  .pricing-tiers {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .visual-card,
+  .flow-step,
+  .shield-cell,
+  .visual-column,
+  .timeline-block,
+  .pricing-tier,
+  .indicator-card,
+  .story-card,
+  .org-node,
+  .red-button-cards span,
+  .confidential-visual span,
+  .hub-sidebar span,
+  .hub-panel-grid span {
+    border-radius: 10px;
+    padding: 12px;
+    min-height: auto;
+    font-size: 14px;
+  }
+
+  .question-map {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 9px;
+    min-height: auto;
+    place-items: stretch;
+  }
+
+  .question-map::before {
+    display: none;
+  }
+
+  .question-center {
+    width: auto;
+    height: auto;
+    min-height: 76px;
+    border-radius: 14px;
+    font-size: 17px;
+    padding: 16px;
+  }
+
+  .question-node {
+    position: static;
+    transform: none !important;
+    min-width: 0;
+    width: 100%;
+    border-radius: 10px;
+    padding: 12px;
+  }
+
+  .flow-visual {
+    gap: 10px;
+  }
+
+  .flow-step {
+    grid-template-columns: 42px 1fr;
+    gap: 10px;
+  }
+
+  .flow-step span {
+    width: 34px;
+    height: 34px;
+    font-size: 12px;
+  }
+
+  .flow-step strong {
+    font-size: 15px;
+    line-height: 1.25;
+  }
+
+  .crossing-chart {
+    min-height: 260px;
+    border-radius: 14px;
+    background-size: 42px 42px;
+  }
+
+  .chart-company {
+    top: 46%;
+    transform: rotate(-14deg);
+  }
+
+  .chart-noise {
+    top: 50%;
+    transform: rotate(15deg);
+  }
+
+  .chart-cross {
+    top: 41%;
+    left: 28%;
+    right: 10%;
+    padding: 10px;
+    font-size: 12px;
+  }
+
+  .chart-label {
+    font-size: 12px;
+  }
+
+  .chart-label-left {
+    left: 7%;
+    bottom: 10%;
+  }
+
+  .chart-label-right {
+    right: 7%;
+    top: 10%;
+  }
+
+  .shield-assets {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .shield-core {
+    grid-column: 1 / -1;
+    grid-row: auto;
+    min-height: 142px;
+    border-radius: 14px;
+  }
+
+  .shield-cell {
+    min-height: 74px;
+  }
+
+  .risk-matrix-visual {
+    min-height: auto;
+    padding: 18px;
+  }
+
+  .risk-quadrant {
+    min-height: 94px;
+    padding: 14px;
+  }
+
+  .risk-axis {
+    position: static;
+    align-self: center;
+  }
+
+  .org-chart {
+    grid-template-columns: 1fr;
+  }
+
+  .org-node-2 {
+    grid-column: auto;
+  }
+
+  .hub-mock {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    border-radius: 14px;
+  }
+
+  .hub-sidebar,
+  .hub-panel {
+    padding: 14px;
+  }
+
+  .hub-sidebar {
+    border-right: 0;
+    border-bottom: 1px solid var(--deck-line);
+  }
+
+  .hub-panel-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .indicator-card {
+    min-height: 92px;
+  }
+
+  .indicator-card strong,
+  .visual-column h3,
+  .timeline-block strong,
+  .pricing-tier h3 {
+    font-size: 20px;
+  }
+
+  .gauge-card {
+    min-height: 164px;
+    gap: 12px;
+  }
+
+  .gauge-ring {
+    width: 94px;
+    height: 94px;
+  }
+
+  .gauge-ring span {
+    width: 72px;
+    height: 72px;
+  }
+
+  .table-head,
+  .table-row {
+    grid-template-columns: 1fr;
+    gap: 7px;
+    padding: 13px;
+  }
+
+  .storyboard {
+    grid-template-columns: 1fr;
+  }
+
+  .story-card {
+    min-height: 94px;
+    align-content: start;
+    gap: 12px;
+  }
+
+  .story-card span {
+    width: 34px;
+    height: 34px;
+  }
+
+  .cycle-visual {
+    min-height: auto;
+    align-items: stretch;
+  }
+
+  .cycle-node,
+  .cycle-center {
+    aspect-ratio: auto;
+    min-height: 58px;
+    border-radius: 12px;
+    padding: 12px;
+  }
+
+  .cycle-center {
+    grid-column: auto;
+  }
+
+  .red-button-visual {
+    min-height: auto;
+    gap: 16px;
+  }
+
+  .red-button-core {
+    width: min(230px, 62vw);
+    height: min(230px, 62vw);
+    border-width: 7px;
+    font-size: clamp(24px, 7vw, 34px);
+  }
+
+  .confidential-seal {
+    grid-column: auto;
+    min-height: 124px;
+    border-radius: 14px;
+    font-size: clamp(25px, 8vw, 34px);
+  }
+
+  .pricing-tiers {
+    grid-template-columns: 1fr;
+  }
+
+  .pricing-tier {
+    min-height: auto;
+    gap: 9px;
+  }
+
+  .pricing-tier strong {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .presentation-stage {
+    --mobile-top-space: 66px;
+    --mobile-bottom-space: 124px;
+  }
+
+  .sales-slide {
+    padding-right: calc(14px + var(--safe-right));
+    padding-left: calc(14px + var(--safe-left));
+  }
+
+  .presentation-back,
+  .presentation-counter,
+  .presentation-fullscreen {
+    min-height: 34px;
+    font-size: 11px;
+  }
+
+  .presentation-back,
+  .presentation-fullscreen {
+    max-width: 104px;
+  }
+
+  .sales-slide h1 {
+    font-size: clamp(27px, 8.9vw, 38px);
+  }
+
+  .slide-text p {
+    font-size: 14px;
+  }
+
+  .visual-card,
+  .flow-step,
+  .shield-cell,
+  .visual-column,
+  .timeline-block,
+  .pricing-tier,
+  .indicator-card,
+  .story-card,
+  .org-node {
+    padding: 11px;
+  }
+
+  .cover-logo {
+    width: min(270px, 72vw);
+  }
+
+  .cover-text p:first-child {
+    font-size: clamp(20px, 6.4vw, 27px);
+  }
+
+  .cover-shield {
+    width: 86px;
+    height: 86px;
+  }
+
+  .presentation-dots {
+    gap: 3px;
+  }
+}
+
+@media (max-width: 390px) {
+  .presentation-stage {
+    --mobile-top-space: 62px;
+    --mobile-bottom-space: 118px;
+  }
+
+  .presentation-fullscreen {
+    width: 38px;
+    padding: 0;
+    font-size: 0;
+    gap: 0;
+  }
+
+  .presentation-fullscreen svg {
+    width: 17px;
+    height: 17px;
+  }
+
+  .presentation-back {
+    max-width: 90px;
+    padding: 0 9px;
+  }
+
+  .presentation-counter {
+    padding: 0 10px;
+  }
+
+  .presentation-dots button {
+    width: 5px;
+    min-height: 5px;
+    height: 5px;
+  }
+
+  .presentation-dots button.active {
+    width: 22px;
+  }
+
+  .sales-slide h1 {
+    font-size: clamp(25px, 8.6vw, 34px);
+  }
+
+  .slide-brand span {
+    display: none;
+  }
+
+  .cover-logo {
+    width: min(250px, 72vw);
+  }
+
+  .cover-version-tag {
+    font-size: 8px;
+  }
+
+  .cover-text p:first-child {
+    font-size: clamp(19px, 6.2vw, 25px);
+  }
+}
+
+@media (max-height: 620px) and (max-width: 900px) {
+  .presentation-stage {
+    --mobile-top-space: 58px;
+    --mobile-bottom-space: 92px;
+  }
+
+  .presentation-topline {
+    top: calc(7px + var(--safe-top));
+  }
+
+  .presentation-progress {
+    top: calc(48px + var(--safe-top));
+  }
+
+  .presentation-controls {
+    bottom: calc(7px + var(--safe-bottom));
+  }
+
+  .presentation-controls button {
+    min-height: 38px;
+  }
+
+  .sales-slide {
+    gap: 10px;
+  }
+
+  .sales-slide h1 {
+    font-size: clamp(24px, 6.5vw, 34px);
+  }
+
+  .slide-text p {
+    font-size: 13px;
+  }
+
+  .cover-minimal {
+    gap: 10px;
+  }
+
+  .cover-logo {
+    width: min(240px, 54vw);
+  }
+
+  .cover-shield {
+    width: 72px;
+    height: 72px;
+  }
+
+  .cover-text p:first-child {
+    font-size: clamp(18px, 5vw, 24px);
+  }
+}
+
+@media (max-width: 767px) {
+  .presentation-stage {
+    --mobile-bottom-space: 20px;
+    --mobile-controls-space: 92px;
+  }
+
+  .presentation-viewport {
+    height: calc(100% - var(--mobile-controls-space) - var(--safe-bottom));
+  }
+
+  .sales-slide {
+    padding-bottom: calc(var(--mobile-bottom-space) + var(--safe-bottom));
+  }
+
+  .cover-minimal {
+    min-height: calc(100dvh - var(--mobile-top-space) - var(--mobile-bottom-space) - var(--mobile-controls-space) - var(--safe-top) - var(--safe-bottom));
+  }
+
+  .slide-footer {
+    display: none;
+  }
+
+  .presentation-controls {
+    min-height: 76px;
+  }
+}
+
+@media (max-width: 480px) {
+  .presentation-stage {
+    --mobile-bottom-space: 18px;
+    --mobile-controls-space: 90px;
+  }
+}
+
+@media (max-width: 390px) {
+  .presentation-stage {
+    --mobile-bottom-space: 16px;
+    --mobile-controls-space: 86px;
+  }
+}
+
+@media (max-height: 620px) and (max-width: 900px) {
+  .presentation-stage {
+    --mobile-bottom-space: 12px;
+    --mobile-controls-space: 74px;
+  }
+
+  .presentation-controls {
+    min-height: 62px;
+  }
+}
+
+@media (max-width: 767px) {
+  .slide-content,
+  .slide-copy,
+  .slide-visual,
+  .visual-card-grid,
+  .visual-checklist,
+  .visual-documentCards,
+  .visual-columns,
+  .timeline-visual,
+  .pricing-tiers,
+  .pricing-tier {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .slide-content,
+  .slide-copy,
+  .slide-visual {
+    width: min(100%, calc(100vw - 36px));
+    justify-self: start;
+  }
+
+  .sales-slide h1 {
+    width: min(100%, calc(100vw - 36px));
+    max-width: 100%;
+    font-size: 32px;
+    line-height: 1.06;
+    overflow-wrap: break-word;
+    word-break: normal;
+  }
+
+  .slide-text p,
+  .pricing-tier p,
+  .visual-column p,
+  .timeline-block span {
+    width: min(100%, calc(100vw - 36px));
+    max-width: 100%;
+    overflow-wrap: break-word;
+  }
+
+  .cover-text,
+  .cover-text p {
+    width: min(320px, calc(100vw - 56px));
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .slide-content,
+  .slide-copy,
+  .slide-visual {
+    width: min(100%, calc(100vw - 28px));
+  }
+
+  .sales-slide h1,
+  .slide-text p,
+  .pricing-tier p,
+  .visual-column p,
+  .timeline-block span {
+    width: min(340px, calc(100vw - 56px));
+  }
+
+  .sales-slide h1 {
+    font-size: 26px;
+  }
+
+  .slide-text p {
+    font-size: 13px;
+  }
+
+  .cover-text,
+  .cover-text p {
+    width: min(310px, calc(100vw - 62px));
+  }
+
+  .cover-text p:first-child {
+    font-size: 22px;
+  }
+
+  .cover-text p {
+    font-size: 13px;
+  }
+
+  .cover-text p:not(:first-child) {
+    width: min(280px, calc(100vw - 86px));
+  }
+}
+
+@media (max-width: 390px) {
+  .sales-slide h1,
+  .slide-text p,
+  .pricing-tier p,
+  .visual-column p,
+  .timeline-block span {
+    width: min(310px, calc(100vw - 56px));
+  }
+
+  .sales-slide h1 {
+    font-size: 24px;
+  }
+
+  .cover-text,
+  .cover-text p {
+    width: min(250px, calc(100vw - 92px));
+  }
+
+  .cover-text p:first-child {
+    font-size: 19px;
+  }
+
+  .cover-text p {
+    font-size: 11px;
+  }
+
+  .cover-text p:not(:first-child) {
+    width: min(238px, calc(100vw - 108px));
+    font-size: 10px;
+  }
+
+  .cover-logo {
+    width: min(214px, 62vw);
+  }
+
+  .presentation-controls button {
+    gap: 5px;
+    padding: 0 8px;
+    font-size: 12px;
+  }
+}
+
+@media (max-height: 620px) and (max-width: 900px) {
+  .sales-slide h1 {
+    font-size: 23px;
+  }
+}

@@ -184,16 +184,16 @@
 
 .document-card-actions {
   display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
   justify-content: flex-end;
   margin-top: 6px;
 }
 
+.internal-file-button,
 .client-model-button {
   align-items: center;
-  background: var(--accent);
-  border: 1px solid var(--accent);
   border-radius: 8px;
-  color: #fff;
   cursor: pointer;
   display: inline-flex;
   font: inherit;
@@ -206,13 +206,29 @@
   transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
 }
 
-.client-model-button:hover:not(:disabled) {
+.internal-file-button {
+  background: var(--accent);
+  border: 1px solid var(--accent);
+  color: #fff;
+}
+
+.client-model-button {
+  background: var(--paper);
+  border: 1px dashed var(--line);
+  color: var(--muted);
+}
+
+.internal-file-button:hover:not(:disabled) {
   box-shadow: 0 8px 18px rgba(0, 0, 0, 0.16);
   transform: translateY(-1px);
 }
 
+.internal-file-button:disabled,
 .client-model-button:disabled {
   cursor: default;
+}
+
+.internal-file-button:disabled {
   opacity: 0.5;
 }
 
@@ -333,6 +349,7 @@
   .card-arrow { align-self: flex-end; }
   .document-card-header { align-items: flex-start; }
   .document-card-actions { justify-content: stretch; }
+  .internal-file-button,
   .client-model-button { justify-content: center; width: 100%; }
   .presentation-actions { flex-direction: column; align-items: stretch; }
   .presentation-cta { justify-content: center; width: 100%; }

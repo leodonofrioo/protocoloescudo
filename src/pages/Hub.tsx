@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { protocolData } from '../data/protocol';
-import { ArrowRight, Clock, FileText, Presentation } from 'lucide-react';
+import { ArrowRight, Clock, FileText, Lock, Presentation } from 'lucide-react';
 import './Hub.css';
 
 export default function Hub() {
@@ -116,16 +116,21 @@ export default function Hub() {
 
                   <div className="document-card-actions">
                     {doc.route ? (
-                      <Link to={doc.route} className="client-model-button">
+                      <Link to={doc.route} className="internal-file-button">
                         <FileText size={15} />
-                        Modelo do cliente
+                        Arquivo interno
                       </Link>
                     ) : (
-                      <button className="client-model-button" type="button" disabled>
+                      <button className="internal-file-button" type="button" disabled>
                         <FileText size={15} />
-                        Modelo do cliente
+                        Arquivo interno
                       </button>
                     )}
+
+                    <button className="client-model-button" type="button" disabled>
+                      <Lock size={15} />
+                      Modelo do cliente: Em Produção
+                    </button>
                   </div>
                 </div>
               );
