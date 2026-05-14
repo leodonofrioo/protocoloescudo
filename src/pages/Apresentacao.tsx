@@ -12,9 +12,9 @@ import {
 } from 'lucide-react';
 import './Apresentacao.css';
 
-type SlideTone = 'cover' | 'dark' | 'light' | 'danger' | 'closing';
+export type SlideTone = 'cover' | 'dark' | 'light' | 'danger' | 'closing';
 
-type VisualType =
+export type VisualType =
   | 'cover'
   | 'questionMap'
   | 'brokenFlow'
@@ -45,20 +45,20 @@ type VisualType =
   | 'steps'
   | 'closing';
 
-type VisualColumn = {
+export type VisualColumn = {
   title: string;
   items: string[];
   note?: string;
   price?: string;
 };
 
-type VisualRow = {
+export type VisualRow = {
   label: string;
   value: string;
   reason: string;
 };
 
-type SlideVisual = {
+export type SlideVisual = {
   type: VisualType;
   center?: string;
   caption?: string;
@@ -69,7 +69,7 @@ type SlideVisual = {
   quadrants?: string[];
 };
 
-type Slide = {
+export type PresentationSlide = {
   eyebrow: string;
   title: string;
   text: string[];
@@ -77,7 +77,7 @@ type Slide = {
   visual: SlideVisual;
 };
 
-const slides: Slide[] = [
+const completePresentationSlides: PresentationSlide[] = [
   {
     eyebrow: 'Protocolo Escudo',
     title: 'Protocolo Escudo',
@@ -864,12 +864,17 @@ function renderVisual(visual: SlideVisual) {
   }
 }
 
-export default function Apresentacao() {
+type PresentationDeckProps = {
+  slides: PresentationSlide[];
+  deckLabel?: string;
+};
+
+export function PresentationDeck({ slides, deckLabel = 'Apresentação comercial' }: PresentationDeckProps) {
   const [activeSlide, setActiveSlide] = useState(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const stageRef = useRef<HTMLElement | null>(null);
   const touchStartX = useRef<number | null>(null);
-  const progress = useMemo(() => ((activeSlide + 1) / slides.length) * 100, [activeSlide]);
+  const progress = useMemo(() => ((activeSlide + 1) / slides.length) * 100, [activeSlide, slides.length]);
 
   const goToSlide = (index: number) => {
     setActiveSlide(Math.max(0, Math.min(slides.length - 1, index)));
@@ -905,7 +910,7 @@ export default function Apresentacao() {
       window.removeEventListener('keydown', handleKeyDown);
       document.removeEventListener('fullscreenchange', handleFullscreenChange);
     };
-  }, []);
+  }, [slides.length]);
 
   const toggleFullscreen = async () => {
     if (!isFullscreen) {
@@ -982,24 +987,38 @@ export default function Apresentacao() {
         <div className="presentation-track" style={{ transform: `translateX(-${activeSlide * 100}%)` }}>
           {slides.map((slide, index) => (
             <article className={`sales-slide sales-slide-${slide.tone ?? 'dark'}`} key={slide.title}>
-              <div className="slide-content">
-                <div className="slide-copy">
-                  <div className="slide-brand">
-                    <img src="/images/Logo.webp" alt="Protocolo Escudo" />
-                    <span>Protocolo Escudo</span>
-                  </div>
-                  <p className="slide-eyebrow">{slide.eyebrow}</p>
+              {slide.tone === 'cover' ? (
+                <div className="cover-minimal">
+                  <div className="cover-version-tag">{deckLabel}</div>
+                  <img className="cover-logo" src="/images/Logo.webp" alt="Protocolo Escudo" />
                   <h1>{slide.title}</h1>
-                  <div className="slide-text">
+                  <div className="cover-text">
                     {slide.text.map(paragraph => <p key={paragraph}>{paragraph}</p>)}
                   </div>
+                  <div className="cover-shield" aria-hidden="true">
+                    <ShieldCheck size={86} />
+                  </div>
                 </div>
+              ) : (
+                <div className="slide-content">
+                  <div className="slide-copy">
+                    <div className="slide-brand">
+                      <img src="/images/Logo.webp" alt="Protocolo Escudo" />
+                      <span>Protocolo Escudo</span>
+                    </div>
+                    <p className="slide-eyebrow">{slide.eyebrow}</p>
+                    <h1>{slide.title}</h1>
+                    <div className="slide-text">
+                      {slide.text.map(paragraph => <p key={paragraph}>{paragraph}</p>)}
+                    </div>
+                  </div>
 
-                <div className="slide-visual">{renderVisual(slide.visual)}</div>
-              </div>
+                  <div className="slide-visual">{renderVisual(slide.visual)}</div>
+                </div>
+              )}
 
               <div className="slide-footer">
-                <span>Apresentação comercial</span>
+                <span>{deckLabel}</span>
                 <span>{String(index + 1).padStart(2, '0')}</span>
               </div>
             </article>
@@ -1042,4 +1061,8 @@ export default function Apresentacao() {
       </div>
     </section>
   );
+}
+
+export default function Apresentacao() {
+  return <PresentationDeck slides={completePresentationSlides} deckLabel="Apresentação completa" />;
 }

@@ -50,13 +50,19 @@
   margin: 0;
 }
 
+.presentation-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 22px;
+}
+
 .presentation-cta {
   display: inline-flex;
   align-items: center;
   gap: 10px;
   width: fit-content;
   min-height: 44px;
-  margin-top: 22px;
   padding: 0 18px;
   border-radius: 8px;
   background: var(--accent);
@@ -66,6 +72,13 @@
   font-weight: 700;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.presentation-cta-secondary {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  box-shadow: none;
 }
 
 .presentation-cta:hover {
@@ -321,4 +334,6 @@
   .document-card-header { align-items: flex-start; }
   .document-card-actions { justify-content: stretch; }
   .client-model-button { justify-content: center; width: 100%; }
+  .presentation-actions { flex-direction: column; align-items: stretch; }
+  .presentation-cta { justify-content: center; width: 100%; }
 }

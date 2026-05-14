@@ -10,7 +10,8 @@ export default function Hub() {
     { title: 'Matriz de Riscos', progress: 60, status: 'Em Produção', route: '/matriz-riscos' },
     { title: 'Manual do Gabinete de Crise', progress: 60, status: 'Em Produção', route: '/gabinete-crise' },
     { title: 'Preços e Políticas comerciais', progress: 60, status: 'Em Produção', route: '/precos-politicas-comerciais' },
-    { title: 'Apresentação', progress: 60, status: 'Em Produção', route: '/apresentacao' },
+    { title: 'Apresentação Completa', progress: 60, status: 'Em Produção', route: '/apresentacao' },
+    { title: 'Apresentação Resumida', progress: 60, status: 'Em Produção', route: '/apresentacao-resumida' },
     { title: 'Mensagens Críticas e Q&A', progress: 60, status: 'Em Produção', route: null },
     { title: 'Fluxo de Acionamento', progress: 60, status: 'Em Produção', route: null },
     { title: 'Relatórios de Prontidão', progress: 60, status: 'Em Produção', route: null },
@@ -29,10 +30,16 @@ export default function Hub() {
         <div className="hero-pill">{protocolData.subtitle}</div>
         <h1 className="hero-title">{protocolData.title}</h1>
         <p className="hero-desc">{protocolData.description}</p>
-        <Link to="/apresentacao" className="presentation-cta">
-          <Presentation size={18} />
-          Apresentação
-        </Link>
+        <div className="presentation-actions">
+          <Link to="/apresentacao" className="presentation-cta">
+            <Presentation size={18} />
+            Apresentação Completa
+          </Link>
+          <Link to="/apresentacao-resumida" className="presentation-cta presentation-cta-secondary">
+            <Presentation size={18} />
+            Versão Resumida
+          </Link>
+        </div>
       </div>
 
       <div className="stats-row">
@@ -50,7 +57,7 @@ export default function Hub() {
         <div className="premium-card standard-card" style={{ padding: '32px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '12px', alignItems: 'center' }}>
             <h3 className="card-title" style={{ margin: 0 }}>
-              Progresso Geral — {totalDocs} arquivos em produção
+              Progresso Geral - {totalDocs} arquivos em produção
             </h3>
             <span style={{ fontWeight: 800, color: 'var(--accent)', fontSize: '24px' }}>{overallProgress}%</span>
           </div>
