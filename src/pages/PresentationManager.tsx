@@ -310,7 +310,10 @@ export default function PresentationManager() {
               Nome
               <input
                 value={plan.name}
-                onChange={event => updatePlan(plan.id, current => ({ ...current, name: event.currentTarget.value }))}
+                onChange={event => {
+                  const value = event.currentTarget.value;
+                  updatePlan(plan.id, current => ({ ...current, name: value }));
+                }}
               />
             </label>
 
@@ -345,7 +348,10 @@ export default function PresentationManager() {
               Descrição
               <textarea
                 value={plan.description}
-                onChange={event => updatePlan(plan.id, current => ({ ...current, description: event.currentTarget.value }))}
+                onChange={event => {
+                  const value = event.currentTarget.value;
+                  updatePlan(plan.id, current => ({ ...current, description: value }));
+                }}
               />
             </label>
 
@@ -353,7 +359,10 @@ export default function PresentationManager() {
               Entregáveis
               <textarea
                 value={listToLines(plan.items)}
-                onChange={event => updatePlan(plan.id, current => ({ ...current, items: linesToList(event.currentTarget.value) }))}
+                onChange={event => {
+                  const value = event.currentTarget.value;
+                  updatePlan(plan.id, current => ({ ...current, items: linesToList(value) }));
+                }}
               />
             </label>
           </article>
@@ -406,20 +415,26 @@ export default function PresentationManager() {
               Nome
               <input
                 value={activeVersion.name}
-                onChange={event => updateVersion(activeVersion.id, current => ({
-                  ...current,
-                  name: event.currentTarget.value,
-                }))}
+                onChange={event => {
+                  const value = event.currentTarget.value;
+                  updateVersion(activeVersion.id, current => ({
+                    ...current,
+                    name: value,
+                  }));
+                }}
               />
             </label>
             <label>
               Slug
               <input
                 value={activeVersion.slug}
-                onChange={event => updateVersion(activeVersion.id, current => ({
-                  ...current,
-                  slug: makeSlug(event.currentTarget.value),
-                }))}
+                onChange={event => {
+                  const value = event.currentTarget.value;
+                  updateVersion(activeVersion.id, current => ({
+                    ...current,
+                    slug: makeSlug(value),
+                  }));
+                }}
               />
             </label>
           </div>
@@ -428,10 +443,13 @@ export default function PresentationManager() {
             Tag exibida na capa
             <input
               value={activeVersion.deckLabel}
-              onChange={event => updateVersion(activeVersion.id, current => ({
-                ...current,
-                deckLabel: event.currentTarget.value,
-              }))}
+              onChange={event => {
+                const value = event.currentTarget.value;
+                updateVersion(activeVersion.id, current => ({
+                  ...current,
+                  deckLabel: value,
+                }));
+              }}
             />
           </label>
 
@@ -439,10 +457,13 @@ export default function PresentationManager() {
             Descrição interna
             <textarea
               value={activeVersion.description}
-              onChange={event => updateVersion(activeVersion.id, current => ({
-                ...current,
-                description: event.currentTarget.value,
-              }))}
+              onChange={event => {
+                const value = event.currentTarget.value;
+                updateVersion(activeVersion.id, current => ({
+                  ...current,
+                  description: value,
+                }));
+              }}
             />
           </label>
 
@@ -512,7 +533,10 @@ export default function PresentationManager() {
             Etiqueta
             <input
               value={draftSlide.eyebrow}
-              onChange={event => setDraftSlide(current => ({ ...current, eyebrow: event.currentTarget.value }))}
+              onChange={event => {
+                const value = event.currentTarget.value;
+                setDraftSlide(current => ({ ...current, eyebrow: value }));
+              }}
             />
           </label>
 
@@ -520,7 +544,10 @@ export default function PresentationManager() {
             Título
             <input
               value={draftSlide.title}
-              onChange={event => setDraftSlide(current => ({ ...current, title: event.currentTarget.value }))}
+              onChange={event => {
+                const value = event.currentTarget.value;
+                setDraftSlide(current => ({ ...current, title: value }));
+              }}
             />
           </label>
 
@@ -529,7 +556,10 @@ export default function PresentationManager() {
             <textarea
               placeholder="Um parágrafo por linha"
               value={draftSlide.text}
-              onChange={event => setDraftSlide(current => ({ ...current, text: event.currentTarget.value }))}
+              onChange={event => {
+                const value = event.currentTarget.value;
+                setDraftSlide(current => ({ ...current, text: value }));
+              }}
             />
           </label>
 
@@ -538,7 +568,10 @@ export default function PresentationManager() {
             <textarea
               placeholder="Um item por linha"
               value={draftSlide.items}
-              onChange={event => setDraftSlide(current => ({ ...current, items: event.currentTarget.value }))}
+              onChange={event => {
+                const value = event.currentTarget.value;
+                setDraftSlide(current => ({ ...current, items: value }));
+              }}
             />
           </label>
 
