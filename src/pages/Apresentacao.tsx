@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { type PointerEvent, useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
@@ -77,7 +78,7 @@ export type PresentationSlide = {
   visual: SlideVisual;
 };
 
-const completePresentationSlides: PresentationSlide[] = [
+export const completePresentationSlides: PresentationSlide[] = [
   {
     eyebrow: 'Protocolo Escudo',
     title: 'Protocolo Escudo',

@@ -1,6 +1,8 @@
-import { PresentationDeck, type PresentationSlide } from './Apresentacao';
+/* eslint-disable react-refresh/only-export-components */
+import { PresentationDeck } from './Apresentacao';
+import type { PresentationSlide } from '../types/presentation';
 
-const summarySlides: PresentationSlide[] = [
+export const summarySlides: PresentationSlide[] = [
   {
     eyebrow: 'Protocolo Escudo',
     title: 'Protocolo Escudo',

@@ -9,8 +9,8 @@ import MatrizRiscos from './pages/MatrizRiscos';
 import CentralProntidao from './pages/CentralProntidao';
 import GabineteCrise from './pages/GabineteCrise';
 import PrecosPoliticasComerciais from './pages/PrecosPoliticasComerciais';
-import Apresentacao from './pages/Apresentacao';
-import ApresentacaoResumida from './pages/ApresentacaoResumida';
+import PresentationRuntime from './pages/PresentationRuntime';
+import PresentationManager from './pages/PresentationManager';
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -54,8 +54,10 @@ function App() {
             <Route path="/central-prontidao" element={<CentralProntidao />} />
             <Route path="/gabinete-crise" element={<GabineteCrise />} />
             <Route path="/precos-politicas-comerciais" element={<PrecosPoliticasComerciais />} />
-            <Route path="/apresentacao" element={<Apresentacao />} />
-            <Route path="/apresentacao-resumida" element={<ApresentacaoResumida />} />
+            <Route path="/apresentacao" element={<PresentationRuntime fixedSlug="completa" />} />
+            <Route path="/apresentacao-resumida" element={<PresentationRuntime fixedSlug="resumida" />} />
+            <Route path="/apresentacao/:slug" element={<PresentationRuntime />} />
+            <Route path="/apresentacoes" element={<PresentationManager />} />
           </Routes>
         </main>
       </div>

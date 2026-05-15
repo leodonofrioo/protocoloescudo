@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { protocolData } from '../data/protocol';
-import { ArrowRight, Clock, FileText, Lock, Presentation } from 'lucide-react';
+import { ArrowRight, Clock, FileText, Lock, Presentation, Settings2 } from 'lucide-react';
 import './Hub.css';
 
 export default function Hub() {
@@ -10,6 +10,7 @@ export default function Hub() {
     { title: 'Matriz de Riscos', progress: 60, status: 'Em Produção', route: '/matriz-riscos' },
     { title: 'Manual do Gabinete de Crise', progress: 60, status: 'Em Produção', route: '/gabinete-crise' },
     { title: 'Preços e Políticas comerciais', progress: 60, status: 'Em Produção', route: '/precos-politicas-comerciais' },
+    { title: 'Sistema de Apresentações', progress: 60, status: 'Em Produção', route: '/apresentacoes' },
     { title: 'Apresentação Completa', progress: 60, status: 'Em Produção', route: '/apresentacao' },
     { title: 'Apresentação Resumida', progress: 60, status: 'Em Produção', route: '/apresentacao-resumida' },
     { title: 'Mensagens Críticas e Q&A', progress: 60, status: 'Em Produção', route: null },
@@ -38,6 +39,10 @@ export default function Hub() {
           <Link to="/apresentacao-resumida" className="presentation-cta presentation-cta-secondary">
             <Presentation size={18} />
             Versão Resumida
+          </Link>
+          <Link to="/apresentacoes" className="presentation-cta presentation-cta-secondary">
+            <Settings2 size={18} />
+            Gerenciar Apresentações
           </Link>
         </div>
       </div>

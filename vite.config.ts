@@ -10,9 +10,16 @@ import {
   type CommercialVariableItem,
   type PaymentOption,
 } from './src/data/commercialPricing'
+import {
+  DEFAULT_PRESENTATION_SYSTEM,
+  normalizePresentationSystem,
+  type PresentationSystemConfig,
+} from './src/data/presentationSystem'
 
 const apiPath = '/api/commercial-pricing'
 const cacheFilePath = resolve(process.cwd(), '.server-cache', 'commercial-pricing.json')
+const presentationsApiPath = '/api/presentations'
+const presentationsCacheFilePath = resolve(process.cwd(), '.server-cache', 'presentations.json')
 
 function normalizeNumber(value: unknown, fallback = 0) {
   return typeof value === 'number' && Number.isFinite(value) && value >= 0 ? value : fallback
@@ -120,6 +127,22 @@ async function writeCachedPricing(config: CommercialPricingConfig) {
   await writeFile(cacheFilePath, `${JSON.stringify(config, null, 2)}\n`, 'utf8')
 }
 
+async function readCachedPresentations() {
+  try {
+    const fileContent = await readFile(presentationsCacheFilePath, 'utf8')
+    return normalizePresentationSystem(JSON.parse(fileContent))
+  } catch {
+    const defaults = normalizePresentationSystem(DEFAULT_PRESENTATION_SYSTEM)
+    await writeCachedPresentations(defaults)
+    return defaults
+  }
+}
+
+async function writeCachedPresentations(config: PresentationSystemConfig) {
+  await mkdir(dirname(presentationsCacheFilePath), { recursive: true })
+  await writeFile(presentationsCacheFilePath, `${JSON.stringify(config, null, 2)}\n`, 'utf8')
+}
+
 function readRequestBody(request: IncomingMessage) {
   return new Promise<string>((resolveBody, rejectBody) => {
     let body = ''
@@ -201,7 +224,64 @@ function commercialPricingCachePlugin(): Plugin {
   }
 }
 
+function registerPresentationsApi(server: ViteDevServer | PreviewServer) {
+  server.middlewares.use(async (request, response, next) => {
+    const pathname = request.url?.split('?')[0] ?? ''
+
+    if (!pathname.startsWith(presentationsApiPath)) {
+      next()
+      return
+    }
+
+    response.setHeader('Access-Control-Allow-Origin', '*')
+    response.setHeader('Access-Control-Allow-Methods', 'GET, PUT, POST, OPTIONS')
+    response.setHeader('Access-Control-Allow-Headers', 'Content-Type')
+
+    if (request.method === 'OPTIONS') {
+      response.statusCode = 204
+      response.end()
+      return
+    }
+
+    try {
+      if (pathname === presentationsApiPath && request.method === 'GET') {
+        sendJson(response, 200, await readCachedPresentations())
+        return
+      }
+
+      if (pathname === presentationsApiPath && request.method === 'PUT') {
+        const body = await readRequestBody(request)
+        const normalized = normalizePresentationSystem(JSON.parse(body || '{}'))
+        await writeCachedPresentations(normalized)
+        sendJson(response, 200, normalized)
+        return
+      }
+
+      if (pathname === `${presentationsApiPath}/reset` && request.method === 'POST') {
+        const defaults = normalizePresentationSystem(DEFAULT_PRESENTATION_SYSTEM)
+        await writeCachedPresentations(defaults)
+        sendJson(response, 200, defaults)
+        return
+      }
+
+      sendJson(response, 405, { error: 'Metodo nao permitido.' })
+    } catch (error) {
+      sendJson(response, 500, {
+        error: error instanceof Error ? error.message : 'Erro ao acessar o cache de apresentacoes.',
+      })
+    }
+  })
+}
+
+function presentationsCachePlugin(): Plugin {
+  return {
+    name: 'presentations-cache',
+    configureServer: registerPresentationsApi,
+    configurePreviewServer: registerPresentationsApi,
+  }
+}
+
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), commercialPricingCachePlugin()],
+  plugins: [react(), commercialPricingCachePlugin(), presentationsCachePlugin()],
 })
